@@ -1,22 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CreditCard, Database } from "lucide-react";
+import { ArrowRight, CreditCard, Database, Images } from "lucide-react";
 import { Terminal } from "./terminal";
+import "@/app/globals.css";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="background-image">
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
               <h1 className="text-4xl font-bold text-gray-900 tracking-tight sm:text-5xl md:text-6xl">
-                Build Your SaaS
-                <span className="block text-orange-500">Faster Than Ever</span>
+                Physics
+                <span className="block text-orange-500">Engineering</span>
               </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                Launch your SaaS product in record time with our powerful,
-                ready-to-use template. Packed with modern technologies and
-                essential integrations.
+              <p className="mt-3 text-base text-gray-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                Hello, I'm Ethan, nice to meet you! I'm a senoir studying
+                physics and astrophysics at the University of Minnesota Twin
+                Cities. I love to build things and I am passionate about
+                applying my physics and engineering knowlege to help others.
+                Explore this site to learn more about me!
               </p>
               <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                 <a
@@ -24,7 +27,7 @@ export default function HomePage() {
                   target="_blank"
                 >
                   <Button className="bg-white hover:bg-gray-100 text-black border border-gray-200 rounded-full text-lg px-8 py-4 inline-flex items-center justify-center">
-                    Deploy your own
+                    Contact Me
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </a>
@@ -37,7 +40,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white w-full">
+      <section className="py-16 bg-white dark:bg-neutral-800 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-3 lg:gap-8">
             <div>
@@ -50,12 +53,13 @@ export default function HomePage() {
                 </svg>
               </div>
               <div className="mt-5">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Next.js and React
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                  Research
                 </h2>
-                <p className="mt-2 text-base text-gray-500">
-                  Leverage the power of modern web technologies for optimal
-                  performance and developer experience.
+                <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
+                  I currently work as a researcher for the TURBO Telescope
+                  group. I worked with the Wang Group for 2 years on Twistronics
+                  and other condensed matter projects.
                 </p>
               </div>
             </div>
@@ -65,12 +69,13 @@ export default function HomePage() {
                 <Database className="h-6 w-6" />
               </div>
               <div className="mt-5">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Postgres and Drizzle ORM
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                  Projects
                 </h2>
-                <p className="mt-2 text-base text-gray-500">
-                  Robust database solution with an intuitive ORM for efficient
-                  data management and scalability.
+                <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
+                  For my physics capstone, my partner and I are using Mössbauer
+                  spectroscopy to study hyperfine interactions withing
+                  magnetite.
                 </p>
               </div>
             </div>
@@ -80,12 +85,12 @@ export default function HomePage() {
                 <CreditCard className="h-6 w-6" />
               </div>
               <div className="mt-5">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Stripe Integration
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                  Hobbies
                 </h2>
-                <p className="mt-2 text-base text-gray-500">
-                  Seamless payment processing and subscription management with
-                  industry-leading Stripe integration.
+                <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
+                  I play soccer and love rock climbing! I also love the
+                  outdoors, especially hear in Minnesota.
                 </p>
               </div>
             </div>
@@ -93,14 +98,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
                 Ready to launch your SaaS?
               </h2>
-              <p className="mt-3 max-w-3xl text-lg text-gray-500">
+              <p className="mt-3 max-w-3xl text-lg text-gray-500 dark:text-gray-400">
                 Our template provides everything you need to get your SaaS up
                 and running quickly. Don't waste time on boilerplate - focus on
                 what makes your product unique.
@@ -109,7 +114,7 @@ export default function HomePage() {
             <div className="mt-8 lg:mt-0 flex justify-center lg:justify-end">
               <a href="https://github.com/nextjs/saas-starter" target="_blank">
                 <Button className="bg-white hover:bg-gray-100 text-black border border-gray-200 rounded-full text-xl px-12 py-6 inline-flex items-center justify-center">
-                  View the code
+                  Resume
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
               </a>
