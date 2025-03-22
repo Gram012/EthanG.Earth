@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Copy, Check } from "lucide-react";
 
 export function Terminal() {
@@ -10,11 +10,16 @@ export function Terminal() {
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [currentDirectory, setCurrentDirectory] = useState<string>("~"); // Default to root
+  const [currentDirectory, setCurrentDirectory] = useState<string>("~");
+  const scrollRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
+  const commands: Record<string, string> = {};
 
-  const commands: Record<string, string> = {
-    help: "Available commands: \nhelp \ncat \nclear \nls \ntheme \ncd",
-  };
+  //Handle proper windowing
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [output]);
 
   const handleCommand = (cmd: string) => {
     if (cmd === "") {
@@ -32,9 +37,25 @@ export function Terminal() {
     }
     if (cmd === "theme") {
       document.documentElement.classList.toggle("dark");
+      setOutput((prev) => [...prev, currentDirectory + "$ theme"]);
       return;
     }
     //Handle ls commands
+    if (cmd === "help") {
+      setOutput((prev) => [
+        ...prev,
+        currentDirectory + "$ help",
+        "Available commands:",
+        "  ls",
+        "  cd",
+        "  clear",
+        "  help",
+        "  theme",
+        "  evince",
+        "  xdg-open",
+      ]);
+      return;
+    }
     if (cmd === "ls") {
       if (currentDirectory === "~") {
         setOutput((prev) => [
@@ -48,7 +69,7 @@ export function Terminal() {
         setOutput((prev) => [
           ...prev,
           currentDirectory + "$ ls",
-          "project1/  project2/  project3/",
+          "MBPrez.pdf  project2/  project3/",
         ]);
         return;
       }
@@ -79,6 +100,28 @@ export function Terminal() {
       return;
     }
 
+    //Handle PDF Viewing
+    if (cmd === "xdg-open MBPrez.pdf") {
+      if (currentDirectory === "~/projects") {
+        // Open the PDF in a new window
+        window.open(
+          "/files/Mössbauer Presentation ETHAN GRAMOWSKI.pdf",
+          "_blank"
+        );
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          "Opening MössbauerPresentation.pdf...",
+        ]);
+      } else {
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          "File not found",
+        ]);
+      }
+      return;
+    }
     // Handle unknown commands
     setOutput((prev) => [
       ...prev,
@@ -150,7 +193,10 @@ export function Terminal() {
             )}
           </button>
         </div>
-        <div className="h-64 overflow-y-auto p-2 bg-gray-50 text-neutral-950 dark:bg-gray-900 dark:text-white font-mono text-sm relative rounded-lg">
+        <div
+          ref={scrollRef} // Attach the ref here
+          className="h-64 overflow-y-auto p-2 bg-gray-50 text-neutral-950 dark:bg-gray-900 dark:text-white font-mono text-sm relative rounded-lg"
+        >
           {output.map((line, index) => (
             <pre
               key={index}
@@ -171,7 +217,6 @@ export function Terminal() {
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               onKeyDown={handleKeyDown} // Attach the keydown handler
-              autoFocus
             />
             {!focused && (
               <span className="absolute left-6 text-gray-500 pointer-events-none">
