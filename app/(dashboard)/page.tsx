@@ -103,18 +103,19 @@ export default function HomePage() {
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
-                Ready to launch your SaaS?
+                Experiance
               </h2>
               <p className="mt-3 max-w-3xl text-lg text-gray-500 dark:text-gray-400">
-                Our template provides everything you need to get your SaaS up
-                and running quickly. Don't waste time on boilerplate - focus on
-                what makes your product unique.
+                This is the all-in-one place to learn more about my professional
+                experiance and skills. From nanofabrication to data analysis, I
+                have a wide range of skills that I have developed working on a
+                wide range of projects.
               </p>
             </div>
             <div className="mt-8 lg:mt-0 flex justify-center lg:justify-end">
               <a href="https://github.com/nextjs/saas-starter" target="_blank">
                 <Button className="bg-white hover:bg-gray-100 text-black border border-gray-200 rounded-full text-xl px-12 py-6 inline-flex items-center justify-center">
-                  Resume
+                  CV
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
               </a>

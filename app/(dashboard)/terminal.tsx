@@ -10,40 +10,92 @@ export function Terminal() {
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [currentDirectory, setCurrentDirectory] = useState<string>("~"); // Default to root
 
   const commands: Record<string, string> = {
-    help: "Available commands: \nhelp \ncat \nclear \nls \ntheme",
-    "cat resume.txt": "[Your resume text here]",
+    help: "Available commands: \nhelp \ncat \nclear \nls \ntheme \ncd",
   };
 
   const handleCommand = (cmd: string) => {
+    if (cmd === "") {
+      setOutput((prev) => [...prev, currentDirectory + "$"]);
+      return;
+    }
     //Command History
     setHistory((prev) => [...prev, cmd]);
     setHistoryIndex(null); //Reset the history index!!!!
+
+    // Handle special commands
+    if (cmd === "clear") {
+      setOutput([]);
+      return;
+    }
+    if (cmd === "theme") {
+      document.documentElement.classList.toggle("dark");
+      return;
+    }
+    //Handle ls commands
+    if (cmd === "ls") {
+      if (currentDirectory === "~") {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls",
+          "projects/  about/  contact/",
+        ]);
+        return;
+      }
+      if (currentDirectory === "~/projects") {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls",
+          "project1/  project2/  project3/",
+        ]);
+        return;
+      }
+    }
+
+    // Handle cd commands
+    //Direcotory Navigation
+    if (cmd === "cd projects" || cmd === "cd projects/") {
+      setCurrentDirectory("~/projects");
+      setOutput((prev) => [...prev, `${currentDirectory}$ cd projects`]);
+      return;
+    }
+
+    //Tree Navigation
+    if (cmd === "cd ~") {
+      setCurrentDirectory("~");
+      setOutput((prev) => [...prev, `${currentDirectory}$ cd ~`]);
+      return;
+    }
+    if (cmd === "cd") {
+      setCurrentDirectory("~");
+      setOutput((prev) => [...prev, `${currentDirectory}$ cd`]);
+      return;
+    }
+    if (cmd === "cd ..") {
+      setCurrentDirectory("~");
+      setOutput((prev) => [...prev, `${currentDirectory}$ cd ..`]);
+      return;
+    }
+
+    // Handle unknown commands
     setOutput((prev) => [
       ...prev,
       `$ ${cmd}`,
       commands[cmd] || "Command not found",
     ]);
-
-    // Handle special commands
-    //if (cmd === "ls") {
-    if (cmd === "clear") {
-      setOutput([]);
-      return;
-    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.trim()) {
-      handleCommand(input.trim());
-    }
+    const trimmedInput = input.trim(); //Essential for command handling
+    handleCommand(trimmedInput);
     setInput("");
   };
 
+  //Arrow Key Functionality
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    //Arrow Key Functionality
     if (e.key === "ArrowUp") {
       // Navigate up in history
       if (history.length > 0) {
@@ -108,7 +160,9 @@ export function Terminal() {
             </pre>
           ))}
           <form onSubmit={handleSubmit} className="flex items-center relative">
-            <span className="text-green-400 mr-2">$</span>
+            <span className="text-green-400 mr-2" style={{ whiteSpace: "pre" }}>
+              {currentDirectory === "~" ? "~$" : currentDirectory + "$"}
+            </span>
             <input
               type="text"
               className="bg-transparent outline-none text-neutral-950 dark:text-white w-full"
@@ -119,7 +173,7 @@ export function Terminal() {
               onKeyDown={handleKeyDown} // Attach the keydown handler
               autoFocus
             />
-            {!focused && input === "" && (
+            {!focused && (
               <span className="absolute left-6 text-gray-500 pointer-events-none">
                 type 'help' for a list of commands
               </span>

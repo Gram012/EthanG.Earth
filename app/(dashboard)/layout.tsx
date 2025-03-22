@@ -40,7 +40,13 @@ function Header({
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    // Check system preference for dark mode
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return true; // Default to dark mode if no system preference is available
+  });
 
   // Toggle the theme
   const toggleTheme = () => {
