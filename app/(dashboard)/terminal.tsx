@@ -103,7 +103,7 @@ export function Terminal() {
     }
 
     // Handle cd commands
-    //Direcotory Navigation
+    //Directory Navigation
     if (cmd === "cd projects" || cmd === "cd projects/") {
       setCurrentDirectory("~/projects");
       setOutput((prev) => [...prev, `${currentDirectory}$ cd projects`]);
