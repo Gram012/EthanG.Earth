@@ -66,7 +66,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <title>My App</title>
+        <title>EthanNet</title>
       </head>
       <body className="flex flex-col min-h-screen">
         <Header toggleTheme={toggleTheme} isDark={isDark} />

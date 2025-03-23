@@ -10,9 +10,27 @@ export function Terminal() {
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [currentDirectory, setCurrentDirectory] = useState<string>("~");
+  const [currentDirectory, setCurrentDirectory] =
+    useState<keyof typeof directories>("~");
   const scrollRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
   const commands: Record<string, string> = {};
+
+  //Commands and Directories
+  const commandsList = [
+    "help",
+    "ls",
+    "cd",
+    "clear",
+    "theme",
+    "evince",
+    "xdg-open",
+  ];
+  const directories = {
+    "~": ["projects", "research", "hobbies"],
+    "~/projects": ["MBPrez.pdf", "project2", "project3"],
+    "~/research": ["paper1.pdf", "paper2.pdf", "paper3.pdf"],
+    "~/hobbies": ["hobby1", "hobby2", "hobby3"],
+  };
 
   //Handle proper windowing
   useEffect(() => {
@@ -61,15 +79,24 @@ export function Terminal() {
         setOutput((prev) => [
           ...prev,
           currentDirectory + "$ ls",
-          "projects/  about/  contact/",
+          "research/  projects/  hobbies/",
         ]);
         return;
-      }
-      if (currentDirectory === "~/projects") {
+      } else if (currentDirectory === "~/projects") {
+        setOutput((prev) => [...prev, currentDirectory + "$ ls", "MBPrez.pdf"]);
+        return;
+      } else if (currentDirectory === "~/research") {
         setOutput((prev) => [
           ...prev,
           currentDirectory + "$ ls",
-          "MBPrez.pdf  project2/  project3/",
+          "paper1.pdf  paper2.pdf  paper3.pdf",
+        ]);
+        return;
+      } else if (currentDirectory === "~/hobbies") {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls",
+          "hobby1  hobby2  hobby3",
         ]);
         return;
       }
@@ -80,6 +107,14 @@ export function Terminal() {
     if (cmd === "cd projects" || cmd === "cd projects/") {
       setCurrentDirectory("~/projects");
       setOutput((prev) => [...prev, `${currentDirectory}$ cd projects`]);
+      return;
+    } else if (cmd === "cd research" || cmd === "cd research/") {
+      setCurrentDirectory("~/research");
+      setOutput((prev) => [...prev, `${currentDirectory}$ cd research`]);
+      return;
+    } else if (cmd === "cd hobbies" || cmd === "cd hobbies/") {
+      setCurrentDirectory("~/hobbies");
+      setOutput((prev) => [...prev, `${currentDirectory}$ cd hobbies`]);
       return;
     }
 
@@ -137,9 +172,53 @@ export function Terminal() {
     setInput("");
   };
 
-  //Arrow Key Functionality
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowUp") {
+  //Arrow Key  and Tab Functionality
+  const handleKeyEvent = (e: React.KeyboardEvent) => {
+    if (e.key === "Tab") {
+      e.preventDefault(); // Prevent the default tab behavior
+
+      const currentInput = input.trim();
+      const suggestions: string[] = [];
+
+      // Handle `cd` suggestions
+      if (currentInput.startsWith("cd ")) {
+        const dirInput = currentInput.slice(3); // Remove "cd " from the input
+        const currentDirs = directories[currentDirectory] || [];
+        suggestions.push(
+          ...currentDirs.filter((dir) => dir.startsWith(dirInput))
+        );
+      } else if (currentInput.startsWith("xdg-open ")) {
+        // Handle `xdg-open` file suggestions
+        const fileInput = currentInput.slice(9); // Remove "xdg-open " from the input
+        const currentFiles = directories[currentDirectory] || [];
+        suggestions.push(
+          ...currentFiles.filter((file) => file.startsWith(fileInput))
+        );
+      } else {
+        // Handle command suggestions
+        suggestions.push(
+          ...commandsList.filter((cmd) => cmd.startsWith(currentInput))
+        );
+      }
+
+      if (suggestions.length === 1) {
+        // Autocomplete if there's only one suggestion
+        if (currentInput.startsWith("cd ")) {
+          setInput(`cd ${suggestions[0]}`);
+        } else if (currentInput.startsWith("xdg-open ")) {
+          setInput(`xdg-open ${suggestions[0]}`);
+        } else {
+          setInput(suggestions[0]);
+        }
+      } else if (suggestions.length > 1) {
+        // Display suggestions in the terminal output
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${currentInput}`,
+          ...suggestions,
+        ]);
+      }
+    } else if (e.key === "ArrowUp") {
       // Navigate up in history
       if (history.length > 0) {
         setHistoryIndex((prev) => {
@@ -216,7 +295,7 @@ export function Terminal() {
               onChange={(e) => setInput(e.target.value)}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              onKeyDown={handleKeyDown} // Attach the keydown handler
+              onKeyDown={handleKeyEvent} // Attach the keydown handler
             />
             {!focused && (
               <span className="absolute left-6 text-gray-500 pointer-events-none">
