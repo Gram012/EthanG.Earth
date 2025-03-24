@@ -60,7 +60,7 @@ export default function HomePage() {
             <div>
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"ethang.earth/cv"}
+                  href={"/cv"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6">
@@ -73,7 +73,7 @@ export default function HomePage() {
               </div>
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline ">
-                  <Link href={"ethang.earth/cv"}>Research</Link>
+                  <Link href={"/cv"}>Research</Link>
                 </h2>
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
                   I currently work as a researcher for the TURBO Telescope
@@ -86,7 +86,7 @@ export default function HomePage() {
             <div className="mt-10 lg:mt-0">
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"ethang.earth/cv"}
+                  href={"/cv"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <Hammer className="h-6 w-6" />
@@ -94,7 +94,7 @@ export default function HomePage() {
               </div>
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline ">
-                  <Link href={"ethang.earth/cv"}>Projects</Link>
+                  <Link href={"/cv"}>Projects</Link>
                 </h2>
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
                   For my physics capstone, my partner and I are using Mössbauer
