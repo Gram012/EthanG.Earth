@@ -134,7 +134,10 @@ export function Terminal() {
         currentDirectory === "~/projects" &&
         fileName === "MossbauerTDR.pdf"
       ) {
-        window.open("https://ethang.earth/files/Mössbauer_TDR.pdf", "_blank");
+        window.open(
+          "https://ethang.earth/files/Mössbauer_TDR_FINAL.pdf",
+          "_blank"
+        );
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
