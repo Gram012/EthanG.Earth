@@ -17,7 +17,7 @@ export function Terminal() {
   //Commands and Directories
   const commands = ["ls", "cd", "clear", "theme", "xdg-open"];
   const directories = {
-    "~": ["projects", "research", "hobbies"],
+    "~": ["projects", "research", "hobbies", "Resume.pdf"],
     "~/projects": ["MBPrez.pdf", "MossbauerTDR.pdf"],
     "~/research": ["TwistronicsPaper.pdf", "Turbotelescope.net"],
     "~/hobbies": ["hobby1", "hobby2", "hobby3"],
@@ -104,6 +104,20 @@ export function Terminal() {
         fileName === "TwistronicsPaper.pdf"
       ) {
         window.open("https://arxiv.org/abs/2408.05708", "_blank");
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          `Opening ${fileName}...`,
+        ]);
+      } else if (
+        directories[currentDirectory]?.includes(fileName) &&
+        currentDirectory === "~" &&
+        fileName === "Resume.pdf"
+      ) {
+        window.open(
+          "https://ethang.earth/files/Resume-Current_01_25.pdf",
+          "_blank"
+        );
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
