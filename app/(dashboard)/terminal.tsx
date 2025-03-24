@@ -19,8 +19,8 @@ export function Terminal() {
   const directories = {
     "~": ["projects", "research", "hobbies", "Resume.pdf"],
     "~/projects": ["MBPrez.pdf", "MossbauerTDR.pdf"],
-    "~/research": ["TwistronicsPaper.pdf", "Turbotelescope.net"],
-    "~/hobbies": ["hobby1", "hobby2", "hobby3"],
+    "~/research": ["TwistronicsPaper.pdf"],
+    "~/hobbies": ["hevy.com", "hobby2", "hobby3"],
   };
 
   //Handle proper windowing
@@ -132,6 +132,17 @@ export function Terminal() {
           "https://ethang.earth/files/MössbauerPresentation.pdf",
           "_blank"
         );
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          `Opening ${fileName}...`,
+        ]);
+      } else if (
+        directories[currentDirectory]?.includes(fileName) &&
+        currentDirectory === "~/hobbies" &&
+        fileName === "hevy.com"
+      ) {
+        window.open("https://hevy.com/profile", "_blank");
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
@@ -301,7 +312,7 @@ export function Terminal() {
               onBlur={() => setFocused(false)}
               onKeyDown={handleKeyEvent} // Attach the keydown handler
             />
-            {!focused && currentDirectory === "~" && (
+            {!focused && currentDirectory === "~" && input === "" && (
               <span className="absolute left-6 text-gray-500 pointer-events-none">
                 type 'help' for a list of commands
               </span>
