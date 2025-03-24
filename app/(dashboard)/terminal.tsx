@@ -135,7 +135,7 @@ export function Terminal() {
         fileName === "MossbauerTDR.pdf"
       ) {
         window.open(
-          "https://ethang.earth/files/Mössbauer_TDR_FINAL.pdf",
+          "https://www.ethang.earth/files/M%C3%B6ssbauer_TDR.pdf",
           "_blank"
         );
         setOutput((prev) => [
