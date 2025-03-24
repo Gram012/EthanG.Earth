@@ -5,22 +5,12 @@ import {
   Database,
   Hammer,
   Images,
-  Linkedin,
   TentTree,
 } from "lucide-react";
-import { Terminal } from "./terminal";
 import "@/app/globals.css";
 import Link from "next/link";
-import {
-  GitHubLogoIcon,
-  InstagramLogoIcon,
-  LinkedInLogoIcon,
-  TwitterLogoIcon,
-} from "@radix-ui/react-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBluesky } from "@fortawesome/free-brands-svg-icons";
 
-export default function HomePage() {
+export default function CVPage() {
   return (
     <main className="background-image">
       <section className="py-20">
@@ -41,14 +31,11 @@ export default function HomePage() {
               <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                 <a href="https://github.com/Gram012" target="_blank">
                   <Button className="bg-white hover:bg-gray-100 text-black border border-gray-200 rounded-full text-lg px-8 py-4 inline-flex items-center justify-center">
-                    Resume
+                    GitHub
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </a>
               </div>
-            </div>
-            <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
-              <Terminal />
             </div>
           </div>
         </div>
@@ -60,7 +47,7 @@ export default function HomePage() {
             <div>
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"ethang.earth/cv"}
+                  href={"https://ethang.earth/cv"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6">
@@ -73,7 +60,7 @@ export default function HomePage() {
               </div>
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline ">
-                  <Link href={"ethang.earth/cv"}>Research</Link>
+                  <Link href={"https://ethang.earth/cv"}>Research</Link>
                 </h2>
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
                   I currently work as a researcher for the TURBO Telescope
@@ -86,7 +73,7 @@ export default function HomePage() {
             <div className="mt-10 lg:mt-0">
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"ethang.earth/cv"}
+                  href={"https://ethang.earth/cv"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <Hammer className="h-6 w-6" />
@@ -94,7 +81,7 @@ export default function HomePage() {
               </div>
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline ">
-                  <Link href={"ethang.earth/cv"}>Projects</Link>
+                  <Link href={"https://ethang.earth/cv"}>Projects</Link>
                 </h2>
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
                   For my physics capstone, my partner and I are using Mössbauer
@@ -130,35 +117,17 @@ export default function HomePage() {
 
       <section className="py-16 bg-gray-50 dark:bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
-              Socials
-            </h2>
-            <div className="flex space-x-6 mt-6">
-              <Link
-                href="https://www.linkedin.com/in/ethan-gramowski-b1b161274/"
-                target="_blank"
-              >
-                <LinkedInLogoIcon className="h-8 w-8 text-orange-500" />
-              </Link>
-              <Link href="https://github.com/Gram012" target="_blank">
-                <GitHubLogoIcon className="h-8 w-8 text-orange-500" />
-              </Link>
-              <Link
-                href="https://www.instagram.com/ethan_gram21/"
-                target="_blank"
-              >
-                <InstagramLogoIcon className="h-8 w-8 text-orange-500" />
-              </Link>
-              <Link
-                href={"https://bsky.app/profile/ethang.earth"}
-                target="_blank"
-              >
-                <FontAwesomeIcon
-                  icon={faBluesky}
-                  className="h-8 w-8 text-orange-500"
-                />
-              </Link>
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
+                Experience
+              </h2>
+              <p className="mt-3 max-w-3xl text-lg text-gray-500 dark:text-gray-400">
+                This is the all-in-one place to learn more about my professional
+                experience and skills. From nanofabrication to data analysis, I
+                have a wide range of skills that I have developed working on
+                projects both academic and personal.
+              </p>
             </div>
           </div>
         </div>
