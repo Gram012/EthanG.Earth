@@ -16,19 +16,11 @@ export function Terminal() {
   const commands: Record<string, string> = {};
 
   //Commands and Directories
-  const commandsList = [
-    "help",
-    "ls",
-    "cd",
-    "clear",
-    "theme",
-    "evince",
-    "xdg-open",
-  ];
+  const commandsList = ["help", "ls", "cd", "clear", "theme", "xdg-open"];
   const directories = {
     "~": ["projects", "research", "hobbies"],
-    "~/projects": ["MBPrez.pdf", "project2", "project3"],
-    "~/research": ["paper1.pdf", "paper2.pdf", "paper3.pdf"],
+    "~/projects": ["MBPrez.pdf", "MossbauerTDR.pdf"],
+    "~/research": ["TwistronicsPaper.pdf", "Turbotelescope.net"],
     "~/hobbies": ["hobby1", "hobby2", "hobby3"],
   };
 
@@ -58,110 +50,111 @@ export function Terminal() {
       setOutput((prev) => [...prev, currentDirectory + "$ theme"]);
       return;
     }
-    //Handle ls commands
     if (cmd === "help") {
       setOutput((prev) => [
         ...prev,
         currentDirectory + "$ help",
-        "Available commands:",
-        "  ls",
-        "  cd",
-        "  clear",
-        "  help",
-        "  theme",
-        "  evince",
-        "  xdg-open",
+        commandsList.join("  "),
       ]);
       return;
     }
     if (cmd === "ls") {
-      if (currentDirectory === "~") {
-        setOutput((prev) => [
-          ...prev,
-          currentDirectory + "$ ls",
-          "research/  projects/  hobbies/",
-        ]);
-        return;
-      } else if (currentDirectory === "~/projects") {
-        setOutput((prev) => [...prev, currentDirectory + "$ ls", "MBPrez.pdf"]);
-        return;
-      } else if (currentDirectory === "~/research") {
-        setOutput((prev) => [
-          ...prev,
-          currentDirectory + "$ ls",
-          "paper1.pdf  paper2.pdf  paper3.pdf",
-        ]);
-        return;
-      } else if (currentDirectory === "~/hobbies") {
-        setOutput((prev) => [
-          ...prev,
-          currentDirectory + "$ ls",
-          "hobby1  hobby2  hobby3",
-        ]);
-        return;
+      setOutput((prev) => [
+        ...prev,
+        currentDirectory + "$ ls",
+        directories[currentDirectory].join("  "),
+      ]);
+      return;
+    }
+
+    // Handle tree navigation
+    if (cmd.startsWith("cd")) {
+      const targetDir = cmd.slice(3).trim();
+      // Navigate to the root directory
+      if (cmd === "cd ~" || cmd === "cd" || cmd === "cd ..") {
+        setCurrentDirectory("~");
+        setOutput((prev) => [...prev, `${currentDirectory}$ ${cmd}`]);
       }
-    }
 
-    // Handle cd commands
-    //Directory Navigation
-    if (cmd === "cd projects" || cmd === "cd projects/") {
-      setCurrentDirectory("~/projects");
-      setOutput((prev) => [...prev, `${currentDirectory}$ cd projects`]);
-      return;
-    } else if (cmd === "cd research" || cmd === "cd research/") {
-      setCurrentDirectory("~/research");
-      setOutput((prev) => [...prev, `${currentDirectory}$ cd research`]);
-      return;
-    } else if (cmd === "cd hobbies" || cmd === "cd hobbies/") {
-      setCurrentDirectory("~/hobbies");
-      setOutput((prev) => [...prev, `${currentDirectory}$ cd hobbies`]);
-      return;
-    }
-
-    //Tree Navigation
-    if (cmd === "cd ~") {
-      setCurrentDirectory("~");
-      setOutput((prev) => [...prev, `${currentDirectory}$ cd ~`]);
-      return;
-    }
-    if (cmd === "cd") {
-      setCurrentDirectory("~");
-      setOutput((prev) => [...prev, `${currentDirectory}$ cd`]);
-      return;
-    }
-    if (cmd === "cd ..") {
-      setCurrentDirectory("~");
-      setOutput((prev) => [...prev, `${currentDirectory}$ cd ..`]);
+      // Navigate to a subdirectory
+      else if (directories[currentDirectory]?.includes(targetDir)) {
+        const newDirectory =
+          `${currentDirectory}/${targetDir}` as keyof typeof directories;
+        if (directories[newDirectory]) {
+          setCurrentDirectory(newDirectory);
+          setOutput((prev) => [...prev, `${currentDirectory}$ ${cmd}`]);
+        } else {
+          setOutput((prev) => [
+            ...prev,
+            `${currentDirectory}$ ${cmd}`,
+            `Directory not found: ${targetDir}`,
+          ]);
+        }
+      } else {
+        // Handle directory not found
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          `Directory not found: ${targetDir}`,
+        ]);
+      }
       return;
     }
 
-    //Handle PDF Viewing
-    if (cmd === "xdg-open MBPrez.pdf") {
-      if (currentDirectory === "~/projects") {
-        // Open the PDF in a new window
+    // Handle `xdg-open` commands
+    if (cmd.startsWith("xdg-open ")) {
+      const fileName = cmd.slice(9).trim();
+      if (
+        directories[currentDirectory]?.includes(fileName) &&
+        currentDirectory === "~/research" &&
+        fileName === "TwistronicsPaper.pdf"
+      ) {
+        window.open("https://arxiv.org/abs/2408.05708", "_blank");
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          `Opening ${fileName}...`,
+        ]);
+      } else if (
+        directories[currentDirectory]?.includes(fileName) &&
+        currentDirectory === "~/projects" &&
+        fileName === "MBPrez.pdf"
+      ) {
         window.open(
-          "/files/Mössbauer Presentation ETHAN GRAMOWSKI.pdf",
+          "https://ethang.earth/files/Mössbauer Presentation ETHAN GRAMOWSKI.pdf",
           "_blank"
         );
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
-          "Opening MössbauerPresentation.pdf...",
+          `Opening ${fileName}...`,
+        ]);
+      } else if (
+        directories[currentDirectory]?.includes(fileName) &&
+        currentDirectory === "~/projects" &&
+        fileName === "MossbauerTDR.pdf"
+      ) {
+        window.open("https://ethang.earth/files/Mössbauer_TDR.pdf", "_blank");
+        setOutput((prev) => [
+          ...prev,
+          `${currentDirectory}$ ${cmd}`,
+          `Opening ${fileName}...`,
         ]);
       } else {
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
-          "File not found",
+          `File not found: ${fileName}`,
         ]);
       }
       return;
     }
+
     // Handle unknown commands
     setOutput((prev) => [
       ...prev,
-      `$ ${cmd}`,
-      commands[cmd] || "Command not found",
+      `${currentDirectory}$ ${cmd}`,
+      `Command not found: ${cmd}`,
     ]);
   };
 
@@ -182,14 +175,14 @@ export function Terminal() {
 
       // Handle `cd` suggestions
       if (currentInput.startsWith("cd ")) {
-        const dirInput = currentInput.slice(3); // Remove "cd " from the input
+        const dirInput = currentInput.slice(3); // Remove inital  command from the input
         const currentDirs = directories[currentDirectory] || [];
         suggestions.push(
           ...currentDirs.filter((dir) => dir.startsWith(dirInput))
         );
       } else if (currentInput.startsWith("xdg-open ")) {
         // Handle `xdg-open` file suggestions
-        const fileInput = currentInput.slice(9); // Remove "xdg-open " from the input
+        const fileInput = currentInput.slice(9);
         const currentFiles = directories[currentDirectory] || [];
         suggestions.push(
           ...currentFiles.filter((file) => file.startsWith(fileInput))
@@ -297,7 +290,7 @@ export function Terminal() {
               onBlur={() => setFocused(false)}
               onKeyDown={handleKeyEvent} // Attach the keydown handler
             />
-            {!focused && (
+            {!focused && currentDirectory === "~" && (
               <span className="absolute left-6 text-gray-500 pointer-events-none">
                 type 'help' for a list of commands
               </span>
