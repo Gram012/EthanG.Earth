@@ -12,11 +12,10 @@ export function Terminal() {
   const [focused, setFocused] = useState(false);
   const [currentDirectory, setCurrentDirectory] =
     useState<keyof typeof directories>("~");
-  const scrollRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
-  const commands: Record<string, string> = {};
+  const scrollRef = useRef<HTMLDivElement>(null); //Ref for the scrollable container
 
   //Commands and Directories
-  const commandsList = ["help", "ls", "cd", "clear", "theme", "xdg-open"];
+  const commands = ["ls", "cd", "clear", "theme", "xdg-open"];
   const directories = {
     "~": ["projects", "research", "hobbies"],
     "~/projects": ["MBPrez.pdf", "MossbauerTDR.pdf"],
@@ -40,7 +39,7 @@ export function Terminal() {
     setHistory((prev) => [...prev, cmd]);
     setHistoryIndex(null); //Reset the history index!!!!
 
-    // Handle special commands
+    //Handle special commands
     if (cmd === "clear") {
       setOutput([]);
       return;
@@ -54,7 +53,7 @@ export function Terminal() {
       setOutput((prev) => [
         ...prev,
         currentDirectory + "$ help",
-        commandsList.join("  "),
+        commands.join("\n"),
       ]);
       return;
     }
@@ -67,31 +66,25 @@ export function Terminal() {
       return;
     }
 
-    // Handle tree navigation
+    //Handle tree navigation
     if (cmd.startsWith("cd")) {
       const targetDir = cmd.slice(3).trim();
-      // Navigate to the root directory
+      //Navigate to the root directory
       if (cmd === "cd ~" || cmd === "cd" || cmd === "cd ..") {
         setCurrentDirectory("~");
         setOutput((prev) => [...prev, `${currentDirectory}$ ${cmd}`]);
       }
 
-      // Navigate to a subdirectory
+      //Navigate to a subdirectory
       else if (directories[currentDirectory]?.includes(targetDir)) {
         const newDirectory =
           `${currentDirectory}/${targetDir}` as keyof typeof directories;
         if (directories[newDirectory]) {
           setCurrentDirectory(newDirectory);
           setOutput((prev) => [...prev, `${currentDirectory}$ ${cmd}`]);
-        } else {
-          setOutput((prev) => [
-            ...prev,
-            `${currentDirectory}$ ${cmd}`,
-            `Directory not found: ${targetDir}`,
-          ]);
         }
       } else {
-        // Handle directory not found
+        //Handle directory not found
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
@@ -101,7 +94,8 @@ export function Terminal() {
       return;
     }
 
-    // Handle `xdg-open` commands
+    //Handle xdg-open commands
+    //Mapped Types???
     if (cmd.startsWith("xdg-open ")) {
       const fileName = cmd.slice(9).trim();
       if (
@@ -153,7 +147,7 @@ export function Terminal() {
       return;
     }
 
-    // Handle unknown commands
+    //Handle unknown commands
     setOutput((prev) => [
       ...prev,
       `${currentDirectory}$ ${cmd}`,
@@ -171,34 +165,34 @@ export function Terminal() {
   //Arrow Key  and Tab Functionality
   const handleKeyEvent = (e: React.KeyboardEvent) => {
     if (e.key === "Tab") {
-      e.preventDefault(); // Prevent the default tab behavior
+      e.preventDefault(); //Prevent the default tab behavior
 
       const currentInput = input.trim();
       const suggestions: string[] = [];
 
-      // Handle `cd` suggestions
+      //Handle `cd` suggestions
       if (currentInput.startsWith("cd ")) {
-        const dirInput = currentInput.slice(3); // Remove inital  command from the input
+        const dirInput = currentInput.slice(3); //Remove inital  command from the input
         const currentDirs = directories[currentDirectory] || [];
         suggestions.push(
           ...currentDirs.filter((dir) => dir.startsWith(dirInput))
         );
       } else if (currentInput.startsWith("xdg-open ")) {
-        // Handle `xdg-open` file suggestions
+        //Handle `xdg-open` file suggestions
         const fileInput = currentInput.slice(9);
         const currentFiles = directories[currentDirectory] || [];
         suggestions.push(
           ...currentFiles.filter((file) => file.startsWith(fileInput))
         );
       } else {
-        // Handle command suggestions
+        //Handle command suggestions
         suggestions.push(
-          ...commandsList.filter((cmd) => cmd.startsWith(currentInput))
+          ...commands.filter((cmd) => cmd.startsWith(currentInput))
         );
       }
 
       if (suggestions.length === 1) {
-        // Autocomplete if there's only one suggestion
+        //Autocomplete if there's only one suggestion
         if (currentInput.startsWith("cd ")) {
           setInput(`cd ${suggestions[0]}`);
         } else if (currentInput.startsWith("xdg-open ")) {
@@ -207,7 +201,7 @@ export function Terminal() {
           setInput(suggestions[0]);
         }
       } else if (suggestions.length > 1) {
-        // Display suggestions in the terminal output
+        //Display suggestions in the terminal output
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${currentInput}`,
