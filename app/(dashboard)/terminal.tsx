@@ -129,7 +129,7 @@ export function Terminal() {
         fileName === "MBPrez.pdf"
       ) {
         window.open(
-          "https://ethang.earth/files/Mössbauer Presentation ETHAN GRAMOWSKI.pdf",
+          "https://ethang.earth/files/MössbauerPresentation.pdf",
           "_blank"
         );
         setOutput((prev) => [
