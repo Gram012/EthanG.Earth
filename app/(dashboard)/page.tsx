@@ -109,7 +109,7 @@ export default function HomePage() {
             <div className="mt-10 lg:mt-0">
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"ethang.earth/hobbies"}
+                  href={"/cv"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <TentTree className="h-6 w-6" />
@@ -118,7 +118,7 @@ export default function HomePage() {
 
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline">
-                  <Link href={"ethang.earth/hobbies"}>Hobbies</Link>
+                  <Link href={"/cv"}>Hobbies</Link>
                 </h2>
 
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
