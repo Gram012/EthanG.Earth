@@ -11,16 +11,41 @@ export function Terminal() {
   const [copied, setCopied] = useState(false);
   const [focused, setFocused] = useState(false);
   const [currentDirectory, setCurrentDirectory] =
-    useState<keyof typeof directories>("~");
+    useState<keyof typeof fileSystem>("~");
   const scrollRef = useRef<HTMLDivElement>(null); //Ref for the scrollable container
 
-  //Commands and Directories
+  //Commands and File System
   const commands = ["ls", "cd", "clear", "theme", "xdg-open"];
-  const directories = {
-    "~": ["projects", "research", "hobbies", "Resume.pdf"],
-    "~/projects": ["MBPrez.pdf", "MossbauerTDR.pdf"],
-    "~/research": ["TwistronicsPaper.pdf"],
-    "~/hobbies": ["hevy.com", "hobby2", "hobby3"],
+  const fileSystem: Record<
+    string,
+    { files: string[]; urls: Record<string, string> }
+  > = {
+    "~": {
+      files: ["projects", "research", "hobbies", "Resume.pdf"],
+      urls: {
+        "Resume.pdf": "https://ethang.earth/files/Resume-Current_01_25.pdf",
+      },
+    },
+    "~/projects": {
+      files: ["MBPrez.pdf", "MossbauerTDR.pdf"],
+      urls: {
+        "MBPrez.pdf": "https://ethang.earth/files/MössbauerPresentation.pdf",
+        "MossbauerTDR.pdf":
+          "https://www.ethang.earth/files/M%C3%B6ssbauer_TDR.pdf",
+      },
+    },
+    "~/research": {
+      files: ["TwistronicsPaper.pdf"],
+      urls: {
+        "TwistronicsPaper.pdf": "https://arxiv.org/abs/2408.05708",
+      },
+    },
+    "~/hobbies": {
+      files: ["hevy.com", "hobby2", "hobby3"],
+      urls: {
+        "hevy.com": "https://hevy.com/profile",
+      },
+    },
   };
 
   //Handle proper windowing
@@ -35,9 +60,10 @@ export function Terminal() {
       setOutput((prev) => [...prev, currentDirectory + "$"]);
       return;
     }
+
     //Command History
     setHistory((prev) => [...prev, cmd]);
-    setHistoryIndex(null); //Reset the history index!!!!
+    setHistoryIndex(null); //Reset the history index
 
     //Handle special commands
     if (cmd === "clear") {
@@ -58,33 +84,43 @@ export function Terminal() {
       return;
     }
     if (cmd === "ls") {
-      setOutput((prev) => [
-        ...prev,
-        currentDirectory + "$ ls",
-        directories[currentDirectory].join("  "),
-      ]);
+      const currentDir = fileSystem[currentDirectory];
+      if (currentDir) {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls",
+          currentDir.files.join("  "),
+        ]);
+      } else {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls",
+          "Directory not found",
+        ]);
+      }
       return;
     }
 
     //Handle tree navigation
     if (cmd.startsWith("cd")) {
       const targetDir = cmd.slice(3).trim();
-      //Navigate to the root directory
       if (cmd === "cd ~" || cmd === "cd" || cmd === "cd ..") {
         setCurrentDirectory("~");
         setOutput((prev) => [...prev, `${currentDirectory}$ ${cmd}`]);
-      }
-
-      //Navigate to a subdirectory
-      else if (directories[currentDirectory]?.includes(targetDir)) {
+      } else if (fileSystem[currentDirectory]?.files.includes(targetDir)) {
         const newDirectory =
-          `${currentDirectory}/${targetDir}` as keyof typeof directories;
-        if (directories[newDirectory]) {
+          `${currentDirectory}/${targetDir}` as keyof typeof fileSystem;
+        if (fileSystem[newDirectory]) {
           setCurrentDirectory(newDirectory);
           setOutput((prev) => [...prev, `${currentDirectory}$ ${cmd}`]);
+        } else {
+          setOutput((prev) => [
+            ...prev,
+            `${currentDirectory}$ ${cmd}`,
+            `Directory not found: ${targetDir}`,
+          ]);
         }
       } else {
-        //Handle directory not found
         setOutput((prev) => [
           ...prev,
           `${currentDirectory}$ ${cmd}`,
@@ -95,73 +131,25 @@ export function Terminal() {
     }
 
     //Handle xdg-open commands
-    //Mapped Types???
     if (cmd.startsWith("xdg-open ")) {
       const fileName = cmd.slice(9).trim();
-      if (
-        directories[currentDirectory]?.includes(fileName) &&
-        currentDirectory === "~/research" &&
-        fileName === "TwistronicsPaper.pdf"
-      ) {
-        window.open("https://arxiv.org/abs/2408.05708", "_blank");
-        setOutput((prev) => [
-          ...prev,
-          `${currentDirectory}$ ${cmd}`,
-          `Opening ${fileName}...`,
-        ]);
-      } else if (
-        directories[currentDirectory]?.includes(fileName) &&
-        currentDirectory === "~" &&
-        fileName === "Resume.pdf"
-      ) {
-        window.open(
-          "https://ethang.earth/files/Resume-Current_01_25.pdf",
-          "_blank"
-        );
-        setOutput((prev) => [
-          ...prev,
-          `${currentDirectory}$ ${cmd}`,
-          `Opening ${fileName}...`,
-        ]);
-      } else if (
-        directories[currentDirectory]?.includes(fileName) &&
-        currentDirectory === "~/projects" &&
-        fileName === "MBPrez.pdf"
-      ) {
-        window.open(
-          "https://ethang.earth/files/MössbauerPresentation.pdf",
-          "_blank"
-        );
-        setOutput((prev) => [
-          ...prev,
-          `${currentDirectory}$ ${cmd}`,
-          `Opening ${fileName}...`,
-        ]);
-      } else if (
-        directories[currentDirectory]?.includes(fileName) &&
-        currentDirectory === "~/hobbies" &&
-        fileName === "hevy.com"
-      ) {
-        window.open("https://hevy.com/profile", "_blank");
-        setOutput((prev) => [
-          ...prev,
-          `${currentDirectory}$ ${cmd}`,
-          `Opening ${fileName}...`,
-        ]);
-      } else if (
-        directories[currentDirectory]?.includes(fileName) &&
-        currentDirectory === "~/projects" &&
-        fileName === "MossbauerTDR.pdf"
-      ) {
-        window.open(
-          "https://www.ethang.earth/files/M%C3%B6ssbauer_TDR.pdf",
-          "_blank"
-        );
-        setOutput((prev) => [
-          ...prev,
-          `${currentDirectory}$ ${cmd}`,
-          `Opening ${fileName}...`,
-        ]);
+      const currentDir = fileSystem[currentDirectory];
+      if (currentDir?.files.includes(fileName)) {
+        const fileUrl = currentDir.urls[fileName];
+        if (fileUrl) {
+          window.open(fileUrl, "_blank");
+          setOutput((prev) => [
+            ...prev,
+            `${currentDirectory}$ ${cmd}`,
+            `Opening ${fileName}...`,
+          ]);
+        } else {
+          setOutput((prev) => [
+            ...prev,
+            `${currentDirectory}$ ${cmd}`,
+            `No URL associated with ${fileName}`,
+          ]);
+        }
       } else {
         setOutput((prev) => [
           ...prev,
@@ -187,7 +175,6 @@ export function Terminal() {
     setInput("");
   };
 
-  //Arrow Key  and Tab Functionality
   const handleKeyEvent = (e: React.KeyboardEvent) => {
     if (e.key === "Tab") {
       e.preventDefault(); //Prevent the default tab behavior
@@ -197,15 +184,15 @@ export function Terminal() {
 
       //Handle `cd` suggestions
       if (currentInput.startsWith("cd ")) {
-        const dirInput = currentInput.slice(3); //Remove inital  command from the input
-        const currentDirs = directories[currentDirectory] || [];
+        const dirInput = currentInput.slice(3); //Remove "cd " from the input
+        const currentDirs = fileSystem[currentDirectory]?.files || [];
         suggestions.push(
           ...currentDirs.filter((dir) => dir.startsWith(dirInput))
         );
       } else if (currentInput.startsWith("xdg-open ")) {
         //Handle `xdg-open` file suggestions
         const fileInput = currentInput.slice(9);
-        const currentFiles = directories[currentDirectory] || [];
+        const currentFiles = fileSystem[currentDirectory]?.files || [];
         suggestions.push(
           ...currentFiles.filter((file) => file.startsWith(fileInput))
         );
@@ -234,7 +221,7 @@ export function Terminal() {
         ]);
       }
     } else if (e.key === "ArrowUp") {
-      // Navigate up in history
+      //Navigate up in history
       if (history.length > 0) {
         setHistoryIndex((prev) => {
           const newIndex =
@@ -244,16 +231,16 @@ export function Terminal() {
         });
       }
     } else if (e.key === "ArrowDown") {
-      // Navigate down in history
+      //Navigate down in history
       if (history.length > 0) {
         setHistoryIndex((prev) => {
-          if (prev === null) return null; // Handle no history to navigate
+          if (prev === null) return null; //Handle no history to navigate
           const newIndex = prev + 1;
           if (newIndex >= history.length) {
-            setInput(""); // Clear input if at the end
-            return null; // Reset history index
+            setInput(""); //Clear input if at the end
+            return null; //Reset history index
           }
-          setInput(history[newIndex]); // Set input to the next command
+          setInput(history[newIndex]); //Set input to the next command
           return newIndex;
         });
       }
@@ -288,7 +275,7 @@ export function Terminal() {
           </button>
         </div>
         <div
-          ref={scrollRef} // Attach the ref here
+          ref={scrollRef} //Attach the ref here
           className="h-64 overflow-y-auto p-2 bg-gray-50 text-neutral-950 dark:bg-gray-900 dark:text-white font-mono text-sm relative rounded-lg"
         >
           {output.map((line, index) => (
@@ -310,7 +297,7 @@ export function Terminal() {
               onChange={(e) => setInput(e.target.value)}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              onKeyDown={handleKeyEvent} // Attach the keydown handler
+              onKeyDown={handleKeyEvent} //Attach the keydown handler
             />
             {!focused && currentDirectory === "~" && input === "" && (
               <span className="absolute left-6 text-gray-500 pointer-events-none">
