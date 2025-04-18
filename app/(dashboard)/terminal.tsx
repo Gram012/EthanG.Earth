@@ -182,7 +182,7 @@ export function Terminal() {
       const currentInput = input.trim();
       const suggestions: string[] = [];
 
-      //Handle `cd` suggestions
+      //Handle cd suggestions
       if (currentInput.startsWith("cd ")) {
         const dirInput = currentInput.slice(3); //Remove "cd " from the input
         const currentDirs = fileSystem[currentDirectory]?.files || [];
@@ -190,7 +190,7 @@ export function Terminal() {
           ...currentDirs.filter((dir) => dir.startsWith(dirInput))
         );
       } else if (currentInput.startsWith("xdg-open ")) {
-        //Handle `xdg-open` file suggestions
+        //Handle xdg-open suggestions
         const fileInput = currentInput.slice(9);
         const currentFiles = fileSystem[currentDirectory]?.files || [];
         suggestions.push(
@@ -238,7 +238,7 @@ export function Terminal() {
           const newIndex = prev + 1;
           if (newIndex >= history.length) {
             setInput(""); //Clear input if at the end
-            return null; //Reset history index
+            return null;
           }
           setInput(history[newIndex]); //Set input to the next command
           return newIndex;
