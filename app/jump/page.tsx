@@ -1,3 +1,4 @@
+"use client";
 import "@/app/globals.css";
 import Link from "next/link";
 import {
@@ -13,6 +14,7 @@ import {
   faGoogleDrive,
   faBluesky,
 } from "@fortawesome/free-brands-svg-icons";
+import { useEffect, useRef } from "react";
 
 //Update Greeting
 const now = new Date();
@@ -29,6 +31,28 @@ const greeting = () => {
 const currentGreeting = greeting();
 
 export default function JumpPage() {
+  //Search Bar
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  //Focus search bar on page load
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.value = "";
+      searchInputRef.current.focus();
+    }
+  }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const query = searchInputRef.current?.value.trim();
+    if (query) {
+      // Redirect to Google's search results page
+      window.location.href = `https://www.google.com/search?q=${encodeURIComponent(
+        query
+      )}`;
+    }
+  };
+
+  //Bookmark Grid
   const bookmarks = [
     {
       href: "https://github.com/Gram012",
@@ -144,7 +168,7 @@ export default function JumpPage() {
         />
       ),
       title: "Drive",
-      description: "Never gets updated",
+      description: "google... booo",
     },
     {
       href: "https://www.nytimes.com/crosswords",
@@ -156,7 +180,7 @@ export default function JumpPage() {
         />
       ),
       title: "NYT Games",
-      description: "Never gets updated",
+      description: "connect deez nuts",
     },
     {
       href: "https://www.myu.umn.edu/psp/psprd/EMPLOYEE/EMPL/h/?tab=DEFAULT&languageCd=ENG",
@@ -168,7 +192,7 @@ export default function JumpPage() {
         />
       ),
       title: "MyU",
-      description: "Never gets updated",
+      description: "crashout szn",
     },
   ];
 
@@ -179,6 +203,14 @@ export default function JumpPage() {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tight sm:text-5xl md:text-6xl text-center mb-12">
             {currentGreeting}
           </h1>
+          <form onSubmit={handleSearch}>
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search Google..."
+              className="w-full p-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-neutral-800 mb-12"
+            />
+          </form>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {bookmarks.map((bookmark, index) => (
               <Link
