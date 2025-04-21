@@ -25,12 +25,12 @@ function Header({
           </Suspense>
           <Button
             onClick={toggleTheme}
-            className="bg-neutral-700 dark:bg-neutral-200 p-2 rounded-full hover:animate-pulse"
+            className="bg-neutral dark:bg-neutral-800 p-2 rounded-full"
           >
             {isDark ? (
-              <SunIcon className="h-5 w-5 text-orange-500" />
+              <SunIcon className="h-5 w-5 text-orange-500 hover:animate-pulse" />
             ) : (
-              <MoonIcon className="h-5 w-5 text-orange-500" />
+              <MoonIcon className="h-5 w-5 text-orange-500 hover:animate-pulse" />
             )}
           </Button>
         </div>

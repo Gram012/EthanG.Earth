@@ -42,10 +42,10 @@ export default function JumpPage() {
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
     const query = searchInputRef.current?.value.trim();
     if (query) {
-      // Redirect to Google's search results page
+      //Redirect to Google's search results page
       window.location.href = `https://www.google.com/search?q=${encodeURIComponent(
         query
       )}`;
@@ -207,7 +207,7 @@ export default function JumpPage() {
             <input
               ref={searchInputRef}
               type="text"
-              placeholder="Search Google..."
+              placeholder="Search..."
               className="w-full p-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-neutral-800 mb-12"
             />
           </form>

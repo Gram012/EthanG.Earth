@@ -16,7 +16,7 @@ function Header({
     <header className="border-b border-gray-200 bg-white dark:bg-neutral-800 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <CircleIcon className="h-6 w-6 text-orange-500" />
+          <img src="favicon.ico" alt="Gmail" className="h-8 w-8" />
           <span className="ml-2 text-xl font-semibold">Ethan Gramowski</span>
         </Link>
         <div className="flex items-center space-x-4">
@@ -25,12 +25,12 @@ function Header({
           </Suspense>
           <Button
             onClick={toggleTheme}
-            className="bg-neutral-700 dark:bg-neutral-200 p-2 rounded-full hover:animate-pulse"
+            className="bg-neutral dark:bg-neutral-800 p-2 rounded-full"
           >
             {isDark ? (
-              <SunIcon className="h-5 w-5 text-orange-500" />
+              <SunIcon className="h-5 w-5 text-orange-500 hover:animate-pulse" />
             ) : (
-              <MoonIcon className="h-5 w-5 text-orange-500" />
+              <MoonIcon className="h-5 w-5 text-orange-500 hover:animate-pulse" />
             )}
           </Button>
         </div>
