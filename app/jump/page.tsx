@@ -105,7 +105,7 @@ export default function JumpPage() {
     {
       href: "https://www.youtube.com/",
       icon: (
-        <FontAwesomeIcon icon={faYoutube} className="h-10 w-10 text-red-500" />
+        <FontAwesomeIcon icon={faYoutube} className="h-12 w-12 text-red-500" />
       ),
       title: "Youtube",
       description: "Where I watch videos of funny monkeys ",
