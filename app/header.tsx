@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleIcon, MoonIcon, SunIcon } from "lucide-react";
 
-function Header({
+function HeaderContent({
   toggleTheme,
   isDark,
 }: {
@@ -39,7 +39,7 @@ function Header({
   );
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Header({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = useState(() => {
     // Check system preference for dark mode
     if (typeof window !== "undefined") {
@@ -69,7 +69,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <title>EthanNet</title>
       </head>
       <body className="flex flex-col min-h-screen">
-        <Header toggleTheme={toggleTheme} isDark={isDark} />
+        <HeaderContent toggleTheme={toggleTheme} isDark={isDark} />
         {children}
       </body>
     </html>

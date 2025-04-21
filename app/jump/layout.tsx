@@ -32,7 +32,7 @@ function Header({
     <header className="border-b border-gray-200 bg-white dark:bg-neutral-800 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <img src="favicon.ico" alt="Gmail" className="h-8 w-8" />
+          <img src="favicon.ico" alt="siteIcon" className="h-8 w-8" />
           <span className="ml-2 text-xl font-semibold">{currentDate}</span>
         </Link>
         <div className="flex items-center space-x-4">

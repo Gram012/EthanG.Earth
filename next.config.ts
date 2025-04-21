@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     ppr: true
   },
 
-
 };
 
 export default nextConfig;
