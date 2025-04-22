@@ -31,7 +31,7 @@ const prefixFactors: Record<string, number> = {
 //map
 const siPrefixes = Object.entries(prefixFactors).map(([name, factor]) => ({
   name,
-  label: name === "" ? "(none)" : `${name} (${factor.toExponential()})`,
+  label: name === "" ? "base (1e0)" : `${name} (${factor.toExponential()})`,
 }));
 
 function countSigFigs(value: string): number {
