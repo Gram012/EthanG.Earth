@@ -15,6 +15,7 @@ import {
   faBluesky,
 } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useRef } from "react";
+import UnitConverter from "../unitConvert";
 
 //Update Greeting
 const now = new Date();
@@ -236,35 +237,7 @@ export default function JumpPage() {
       <section className="py-16 bg-gray-50 dark:bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
-              Socials
-            </h2>
-            <div className="flex space-x-6 mt-6">
-              <Link
-                href="https://www.linkedin.com/in/ethan-gramowski-b1b161274/"
-                target="_blank"
-              >
-                <LinkedInLogoIcon className="h-8 w-8 text-orange-500" />
-              </Link>
-              <Link href="https://github.com/Gram012" target="_blank">
-                <GitHubLogoIcon className="h-8 w-8 text-orange-500" />
-              </Link>
-              <Link
-                href="https://www.instagram.com/ethan_gram21/"
-                target="_blank"
-              >
-                <InstagramLogoIcon className="h-8 w-8 text-orange-500" />
-              </Link>
-              <Link
-                href={"https://bsky.app/profile/ethang.earth"}
-                target="_blank"
-              >
-                <FontAwesomeIcon
-                  icon={faBluesky}
-                  className="fa-2xl text-orange-500"
-                />
-              </Link>
-            </div>
+            <UnitConverter />
           </div>
         </div>
       </section>
