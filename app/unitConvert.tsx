@@ -141,12 +141,12 @@ const UnitConverter = () => {
           <label className="font-medium">Input</label>
           <input
             type="number"
-            className="border p-2 rounded"
+            className="border p-2 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-white"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
           <select
-            className="border p-2 rounded "
+            className="border p-2 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-white"
             value={inputPrefix}
             onChange={(e) => setInputPrefix(e.target.value)}
           >
@@ -157,7 +157,7 @@ const UnitConverter = () => {
             ))}
           </select>
           <select
-            className="border p-2 rounded"
+            className="border p-2 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-white"
             value={inputUnit}
             onChange={(e) => setInputUnit(e.target.value)}
           >
@@ -183,12 +183,12 @@ const UnitConverter = () => {
         <div className="flex flex-col space-y-2">
           <label className="font-medium">Output</label>
           <input
-            className="border p-2 rounded bg-gray-100"
+            className="border p-2 rounded bg-white dark:bg-neutral-700 text-gray-900 dark:text-white"
             value={outputValue}
             disabled
           />
           <select
-            className="border p-2 rounded"
+            className="border p-2 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-white"
             value={outputPrefix}
             onChange={(e) => setOutputPrefix(e.target.value)}
           >
@@ -199,7 +199,7 @@ const UnitConverter = () => {
             ))}
           </select>
           <select
-            className="border p-2 rounded"
+            className="border p-2 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-white"
             value={outputUnit}
             onChange={(e) => setOutputUnit(e.target.value)}
           >
