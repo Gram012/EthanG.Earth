@@ -160,6 +160,17 @@ export function Terminal() {
       return;
     }
 
+    //Handle jump
+    if (cmd === "jump") {
+      window.open("https://jump.ethang.earth");
+      setOutput((prev) => [
+        ...prev,
+        `${currentDirectory}$ ${cmd}`,
+        `Jumping...`,
+      ]);
+      return;
+    }
+
     //Handle unknown commands
     setOutput((prev) => [
       ...prev,

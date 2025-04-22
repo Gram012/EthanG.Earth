@@ -5,7 +5,7 @@ import Head from "next/head"; // Import next/head
 import { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleIcon, MoonIcon, SunIcon } from "lucide-react";
-import siteTheme from "app/theme";
+import siteTheme from "@/components/ui/theme";
 
 function HeaderContent({
   toggleTheme,
