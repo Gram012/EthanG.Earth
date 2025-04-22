@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Head from "next/head"; // Import next/head
 import { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleIcon, MoonIcon, SunIcon } from "lucide-react";
+import siteTheme from "../theme";
 
-function Header({
+function SiteHeader({
   toggleTheme,
   isDark,
 }: {
@@ -32,7 +34,7 @@ function Header({
     <header className="border-b border-gray-200 bg-white dark:bg-neutral-800 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <img src="favicon.ico" alt="siteIcon" className="h-8 w-8" />
+          <img src="Images/favicon.ico" alt="favicon" className="h-8 w-8" />
           <span className="ml-2 text-xl font-semibold">{currentDate}</span>
         </Link>
         <div className="flex items-center space-x-4">
@@ -55,37 +57,17 @@ function Header({
   );
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  const [isDark, setIsDark] = useState(() => {
-    // Check system preference for dark mode
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-    return true; // Default to dark mode if no system preference is available
-  });
-
-  // Toggle the theme
-  const toggleTheme = () => {
-    setIsDark((prev) => !prev);
-  };
-
-  // Apply the theme class to the <html> element
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [isDark]);
+export default function Header({ children }: { children: React.ReactNode }) {
+  const { isDark, toggleTheme } = siteTheme();
 
   return (
     <html lang="en">
       <head>
-        <title>EthanNet</title>
+        <title>Jump</title>
+        <link rel="icon" href="/Images/favicon.ico" type="image/x-icon" />
       </head>
       <body className="flex flex-col min-h-screen">
-        <Header toggleTheme={toggleTheme} isDark={isDark} />
+        <SiteHeader toggleTheme={toggleTheme} isDark={isDark} />
         {children}
       </body>
     </html>

@@ -2,11 +2,6 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 
-export const metadata: Metadata = {
-  title: "Ethan Gramowski",
-  description: "The personal website of Ethan Gramowski",
-};
-
 export const viewport: Viewport = {
   maximumScale: 1,
 };

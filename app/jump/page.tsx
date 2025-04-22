@@ -105,7 +105,7 @@ export default function JumpPage() {
     {
       href: "https://www.youtube.com/",
       icon: (
-        <FontAwesomeIcon icon={faYoutube} className="h-12 w-12 text-red-500" />
+        <FontAwesomeIcon icon={faYoutube} className="text-red-500 fa-2xl" />
       ),
       title: "Youtube",
       description: "Where I watch videos of funny monkeys ",
@@ -261,7 +261,7 @@ export default function JumpPage() {
               >
                 <FontAwesomeIcon
                   icon={faBluesky}
-                  className="h-8 w-8 text-orange-500"
+                  className="fa-2xl text-orange-500"
                 />
               </Link>
             </div>

@@ -1,19 +1,22 @@
-import Link from 'next/link';
-import { CircleIcon } from 'lucide-react';
+import Link from "next/link";
+import siteTheme from "./theme";
 
 export default function NotFound() {
+  const { isDark, toggleTheme } = siteTheme();
   return (
-    <div className="flex items-center justify-center min-h-[100dvh]">
+    <div className="flex items-center justify-center min-h-[100dvh]  bg-natrual-100 dark:bg-neutral-800">
+      isDark={isDark}
       <div className="max-w-md space-y-8 p-4 text-center">
         <div className="flex justify-center">
-          <CircleIcon className="size-12 text-orange-500" />
+          <img src="Images/favicon.ico" alt="favicon" className="h-20 w-20" />
         </div>
         <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
           Page Not Found
         </h1>
         <p className="text-base text-gray-500">
-          The page you are looking for might have been removed, had its name
-          changed, or is temporarily unavailable.
+          Looks like you might have gotten a little lost (or the admin{" "}
+          <code className=" text-red-500 px-1 rounded">rm -rf</code> 'd the
+          wrong directory).
         </p>
         <Link
           href="/"
