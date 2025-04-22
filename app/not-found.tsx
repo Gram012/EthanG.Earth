@@ -1,11 +1,8 @@
 import Link from "next/link";
-import siteTheme from "./theme";
 
 export default function NotFound() {
-  const { isDark, toggleTheme } = siteTheme();
   return (
     <div className="flex items-center justify-center min-h-[100dvh]  bg-natrual-100 dark:bg-neutral-800">
-      isDark={isDark}
       <div className="max-w-md space-y-8 p-4 text-center">
         <div className="flex justify-center">
           <img src="Images/favicon.ico" alt="favicon" className="h-20 w-20" />

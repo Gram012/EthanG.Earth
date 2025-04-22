@@ -12,8 +12,8 @@ export function middleware(request: NextRequest) {
         pathname.startsWith('/favicon.ico') ||
         pathname.startsWith('/Images') ||
         pathname.startsWith('/robots.txt') ||
-        pathname.includes('.')
-
+        pathname.includes('.') ||
+        pathname.match('app/layout.tsx')
     if (STATIC_FILE) return NextResponse.next()
 
     if (subdomain === 'jump') {
