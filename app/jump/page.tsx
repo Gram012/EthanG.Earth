@@ -204,14 +204,14 @@ export default function JumpPage() {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tight sm:text-5xl md:text-6xl text-center mb-12">
             {currentGreeting}
           </h1>
-          <form onSubmit={handleSearch}>
+          {/* <form onSubmit={handleSearch}>
             <input
               ref={searchInputRef}
               type="text"
               placeholder="Search..."
               className="w-full p-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-neutral-800 mb-12"
             />
-          </form>
+          </form> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {bookmarks.map((bookmark, index) => (
               <Link
