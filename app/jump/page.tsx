@@ -217,6 +217,8 @@ export default function JumpPage() {
               <Link
                 key={index}
                 href={bookmark.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group block p-6 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-neutral-800"
               >
                 <div className="flex items-center space-x-4">
