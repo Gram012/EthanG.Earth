@@ -42,6 +42,12 @@ export default function JumpPage() {
     }
   }, []);
 
+  const handleBookmarkClick = (href: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open(href, "_blank", "noopener");
+    window.close(); // should succeed because you just opened it via script
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const query = searchInputRef.current?.value.trim();
@@ -214,12 +220,13 @@ export default function JumpPage() {
           </form>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {bookmarks.map((bookmark, index) => (
-              <Link
+              <a
                 key={index}
                 href={bookmark.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block p-6 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-neutral-800"
+                onClick={handleBookmarkClick(bookmark.href)}
+                className="group block p-6 border …"
               >
                 <div className="flex items-center space-x-4">
                   {bookmark.icon}
@@ -230,7 +237,7 @@ export default function JumpPage() {
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   {bookmark.description}
                 </p>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
