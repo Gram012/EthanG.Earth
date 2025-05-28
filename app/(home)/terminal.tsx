@@ -15,7 +15,7 @@ export function Terminal() {
   const scrollRef = useRef<HTMLDivElement>(null); //Ref for the scrollable container
 
   //Commands and File System
-  const commands = ["ls", "cd", "clear", "theme", "xdg-open"];
+  const commands = ["ls", "cd", "clear", "theme", "xdg-open", "man", "ls -la"];
   const fileSystem: Record<
     string,
     { files: string[]; urls: Record<string, string> }
@@ -95,6 +95,23 @@ export function Terminal() {
         setOutput((prev) => [
           ...prev,
           currentDirectory + "$ ls",
+          "Directory not found",
+        ]);
+      }
+      return;
+    }
+    if (cmd === "ls -la") {
+      const currentDir = fileSystem[currentDirectory];
+      if (currentDir) {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls -la",
+          currentDir.files.join("  "),
+        ]);
+      } else {
+        setOutput((prev) => [
+          ...prev,
+          currentDirectory + "$ ls -la",
           "Directory not found",
         ]);
       }
