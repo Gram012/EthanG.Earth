@@ -56,7 +56,7 @@ export default function JumpPage() {
   //Bookmark Grid
   const bookmarks = [
     {
-      href: "https://github.com/Gram012",
+      href: "https://github.com/Gram012?tab=repositories",
       icon: (
         <GitHubLogoIcon className="h-8 w-8 text-gray-900 dark:text-white" />
       ),
