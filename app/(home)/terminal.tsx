@@ -23,15 +23,15 @@ export function Terminal() {
     "~": {
       files: ["projects", "research", "hobbies", "Resume.pdf"],
       urls: {
-        "Resume.pdf": "https://ethang.earth/files/Resume-Current_01_25.pdf",
+        "Resume.pdf": "https://ethang.earth/files/Resume.pdf",
       },
     },
     "~/projects": {
-      files: ["MBPrez.pdf", "MossbauerTDR.pdf"],
+      files: ["MBPrez.pdf", "MossbauerPaper.pdf"],
       urls: {
         "MBPrez.pdf": "https://ethang.earth/files/MössbauerPresentation.pdf",
         "MossbauerTDR.pdf":
-          "https://www.ethang.earth/files/M%C3%B6ssbauer_TDR.pdf",
+          "https://www.ethang.earth/files/Mössbauer_FINAL_REPORT.pdf",
       },
     },
     "~/research": {
