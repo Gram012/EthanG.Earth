@@ -30,7 +30,7 @@ export function Terminal() {
       files: ["MBPrez.pdf", "MossbauerPaper.pdf"],
       urls: {
         "MBPrez.pdf": "https://ethang.earth/files/MössbauerPresentation.pdf",
-        "MossbauerTDR.pdf":
+        "MossbauerPaper.pdf":
           "https://www.ethang.earth/files/Mössbauer_FINAL_REPORT.pdf",
       },
     },
