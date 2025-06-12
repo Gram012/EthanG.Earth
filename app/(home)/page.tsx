@@ -32,11 +32,12 @@ export default function HomePage() {
                 <span className="block text-orange-500">Engineering</span>
               </h1>
               <p className="mt-3 text-base text-gray-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                Hello, I'm Ethan, nice to meet you! I'm a senior studying
-                physics and astrophysics at the University of Minnesota Twin
-                Cities. I love to build things and I am passionate about
-                applying my physics and engineering knowledge to help others.
-                Explore this site to learn more about me!
+                Hello, I'm Ethan, nice to meet you! I recently graduated from
+                the University of Minnesota's College of Science and Engineering
+                with a B.S. in astrophysics and another in physics. I love to
+                build things and I am passionate about applying my physics and
+                engineering knowledge to help others. Explore this site to learn
+                more about me!
               </p>
               <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                 <a href="https://ethang.earth/files/Resume.pdf" target="_blank">
@@ -60,7 +61,7 @@ export default function HomePage() {
             <div>
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"/cv"}
+                  href={"/research"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6">
@@ -73,7 +74,7 @@ export default function HomePage() {
               </div>
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline ">
-                  <Link href={"/cv"}>Research</Link>
+                  <Link href={"/research"}>Research</Link>
                 </h2>
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
                   I currently work as a researcher for the TURBO Telescope
@@ -86,7 +87,7 @@ export default function HomePage() {
             <div className="mt-10 lg:mt-0">
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"/cv"}
+                  href={"/projects"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <Hammer className="h-6 w-6" />
@@ -94,7 +95,7 @@ export default function HomePage() {
               </div>
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline ">
-                  <Link href={"/cv"}>Projects</Link>
+                  <Link href={"/projects"}>Projects</Link>
                 </h2>
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
                   For my physics capstone, my partner and I are using Mössbauer
@@ -106,7 +107,7 @@ export default function HomePage() {
             <div className="mt-10 lg:mt-0">
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white hover:bg-orange-600">
                 <Link
-                  href={"/cv"}
+                  href={"/hobbies"}
                   className="flex items-center justify-center h-full w-full"
                 >
                   <TentTree className="h-6 w-6" />
@@ -115,7 +116,7 @@ export default function HomePage() {
 
               <div className="mt-5">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 underline">
-                  <Link href={"/cv"}>Hobbies</Link>
+                  <Link href={"/hobbies"}>Hobbies</Link>
                 </h2>
 
                 <p className="mt-2 text-base text-gray-500 dark:text-gray-400">

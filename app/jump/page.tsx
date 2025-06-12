@@ -160,7 +160,7 @@ export default function JumpPage() {
       description: "Integral Calculator",
     },
     {
-      href: "https://drive.google.com/drive/u/0/home",
+      href: "https://www.wolframalpha.com",
       icon: (
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"
