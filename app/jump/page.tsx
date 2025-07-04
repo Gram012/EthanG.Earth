@@ -148,7 +148,7 @@ export default function JumpPage() {
       description: "Graphing Calculator",
     },
     {
-      href: "https://calendar.google.com/calendar/u/0/r/month?pli=1",
+      href: "https://www.wolframalpha.com",
       icon: (
         <img
           src="https://img.icons8.com/?size=512&id=13667&format=png"
@@ -160,7 +160,7 @@ export default function JumpPage() {
       description: "Integral Calculator",
     },
     {
-      href: "https://www.wolframalpha.com",
+      href: "https://calendar.google.com/calendar/u/0/r/month?pli=1",
       icon: (
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"
