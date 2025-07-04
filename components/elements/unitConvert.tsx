@@ -68,7 +68,7 @@ const UnitConverter = () => {
   //filter outputs
   useEffect(() => {
     const valid = baseUnits.filter((u) => {
-      if (u === inputUnit) return false;
+      // if (u === inputUnit) return false;
       try {
         math.unit(1, inputUnit).to(u);
         return true;
