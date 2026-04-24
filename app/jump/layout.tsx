@@ -1,10 +1,8 @@
 "use client";
-
 import Link from "next/link";
-import Head from "next/head"; // Import next/head
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { CircleIcon, MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import siteTheme from "../../components/ui/theme";
 
 function SiteHeader({
@@ -14,15 +12,13 @@ function SiteHeader({
   toggleTheme: () => void;
   isDark: boolean;
 }) {
-  //Display Current Time
-  const [currentTime, setCurrentTime] = useState(() =>
-    new Date().toLocaleTimeString()
-  );
+  const [currentTime, setCurrentTime] = useState<string | null>(null);
+  const [currentDate, setCurrentDate] = useState<string | null>(null);
 
-  const [currentDate, setCurrentDate] = useState(() =>
-    new Date().toLocaleDateString()
-  );
   useEffect(() => {
+    setCurrentDate(new Date().toLocaleDateString());
+    setCurrentTime(new Date().toLocaleTimeString());
+
     const interval = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
@@ -35,12 +31,12 @@ function SiteHeader({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <img src="Images/favicon.ico" alt="favicon" className="h-8 w-8" />
-          <span className="ml-2 text-xl font-semibold">{currentDate}</span>
+          <span className="ml-2 text-xl font-semibold">
+            {currentDate ?? ""}
+          </span>
         </Link>
         <div className="flex items-center space-x-4">
-          <Suspense fallback={<div className="h-9" />}>
-            <p>{currentTime}</p>
-          </Suspense>
+          <p>{currentTime ?? ""}</p>
           <Button
             onClick={toggleTheme}
             className="bg-neutral dark:bg-neutral-800 p-2 rounded-full"
