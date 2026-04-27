@@ -64,16 +64,20 @@ export default function JumpPage() {
       description: "Cringe social media platform",
     },
     {
-      href: "https://mail.google.com/mail/u/0/#inbox",
+      href: "https://github.com/patkel/turbo_telescope/wiki",
       icon: (
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg"
-          alt="Gmail"
-          className="h-8 w-8"
-        />
+        <GitHubLogoIcon className="h-8 w-8 text-gray-900 dark:text-white" />
       ),
-      title: "Email",
-      description: "School email",
+      title: "Wiki",
+      description: "Turbo Wiki",
+    },
+    {
+      href: "https://github.com/TurboTelescope",
+      icon: (
+        <GitHubLogoIcon className="h-8 w-8 text-gray-900 dark:text-white" />
+      ),
+      title: "Org",
+      description: "Turbo Organization",
     },
     // {
     //   href: "https://bsky.app/",
@@ -83,14 +87,6 @@ export default function JumpPage() {
     //   title: "BlueSky",
     //   description: "Less shit twitter",
     // },
-    {
-      href: "https://canvas.umn.edu/",
-      icon: (
-        <img src="/Images/canvas_icon.png" alt="canvas" className="h-10 w-10" />
-      ),
-      title: "Canvas",
-      description: "classes",
-    },
     {
       href: "https://git.ltgk.net/",
       icon: (
@@ -160,16 +156,16 @@ export default function JumpPage() {
       description: "Integral Calculator",
     },
     {
-      href: "https://calendar.google.com/calendar/u/0/r/month?pli=1",
+      href: "https://mail.google.com/mail/u/0/#inbox",
       icon: (
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"
-          alt="Drive"
+          src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg"
+          alt="Gmail"
           className="h-8 w-8"
         />
       ),
-      title: "Drive",
-      description: "google... booo",
+      title: "Email",
+      description: "School email",
     },
     {
       href: "https://www.nytimes.com/crosswords",
