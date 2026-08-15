@@ -8,6 +8,8 @@ import {
   TwitterLogoIcon,
 } from "@radix-ui/react-icons";
 import { GitlabIcon, Mail, YoutubeIcon } from "lucide-react";
+import { APIManagement, Azure } from "azure-react-icons";
+import { VscAzureDevops } from "react-icons/vsc";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faYoutube,
@@ -64,20 +66,22 @@ export default function JumpPage() {
       description: "Cringe social media platform",
     },
     {
-      href: "https://github.com/patkel/turbo_telescope/wiki",
+      href: "https://outlook.cloud.microsoft/mail/",
       icon: (
-        <GitHubLogoIcon className="h-8 w-8 text-gray-900 dark:text-white" />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original"
+          alt="Outlook"
+          className="h-10 w-10"
+        />
       ),
-      title: "Wiki",
-      description: "Turbo Wiki",
+      title: "Outlook",
+      description: "LasX Email",
     },
     {
-      href: "https://github.com/TurboTelescope",
-      icon: (
-        <GitHubLogoIcon className="h-8 w-8 text-gray-900 dark:text-white" />
-      ),
-      title: "Org",
-      description: "Turbo Organization",
+      href: "https://dev.azure.com/lasxindustries/LightGuide",
+      icon: <VscAzureDevops size={40} color="#0078d4" />,
+      title: "Azure",
+      description: "LasX Git",
     },
     // {
     //   href: "https://bsky.app/",
@@ -88,16 +92,16 @@ export default function JumpPage() {
     //   description: "Less shit twitter",
     // },
     {
-      href: "https://git.ltgk.net/",
+      href: "https://lasx.monday.com/",
       icon: (
         <img
-          src="https://raw.githubusercontent.com/tynor88/docker-templates/master/images/gitlab_small.png"
-          alt="GitLab"
+          src="/Images/monday-icon-svgrepo-com.svg"
+          alt="Monday.com"
           className="h-8 w-8"
         />
       ),
-      title: "GitLab",
-      description: "Self-Hosted GitLab server.",
+      title: "Monday.com",
+      description: "LasX PM suite",
     },
     {
       href: "https://www.youtube.com/",
@@ -111,7 +115,7 @@ export default function JumpPage() {
       href: "https://porkbun.com/",
       icon: (
         <img
-          src="https://porkbun.com/partners/logos/porkbun.comphpPkl2eU.svg"
+          src="/Images/porkbun-svgrepo-com.svg"
           alt="Porkbun"
           className="h-10 w-10"
         />
